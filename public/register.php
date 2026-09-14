@@ -21,20 +21,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare(
-            "INSERT INTO users (username, email, password_hash)
-             VALUES (?, ?, ?)"
-        );
+         "INSERT INTO users (username, email, password_hash)
+            VALUES (?, ?, ?)" 
+            );
 
-        $stmt->bind_param("sss", $username, $email, $password_hash);
+          $stmt->bind_param("sss", $username, $email, $password_hash);
 
-        if ($stmt->execute()) {
-            $message = "Registration successful. You can now login.";
-        } else {
-            if ($conn->errno === 1062) {
-                $message = "Username or email already exists.";
-            } else {
-                $message = "Registration failed.";
-            }
+          try {
+ 
+          $stmt->execute();
+   
+          $message = "Registration successful. You can now login.";
+ 
+            } catch (mysqli_sql_exception $e) {
+
+             if ($e->getCode() === 1062) {
+               $message = "Username or email already exists.";
+                 } else {
+                 $message = "Registration failed.";
+           }
         }
 
         $stmt->close();

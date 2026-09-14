@@ -1,9 +1,9 @@
 <?php
 
-$host = "db";
-$dbname = "p2p_payment";
-$username = "p2p_user";
-$password = "p2p_password";
+$host = getenv("DB_HOST") ?: "db";
+$dbname = getenv("MYSQL_DATABASE") ?: "p2p_payment";
+$username = getenv("MYSQL_USER") ?: "p2p_user";
+$password = getenv("MYSQL_PASSWORD") ?: "p2p_password";
 
 $conn = new mysqli($host, $username, $password, $dbname);
 
