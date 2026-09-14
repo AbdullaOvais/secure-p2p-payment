@@ -2,17 +2,26 @@
 <html>
 <head>
     <title>Secure P2P Payment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>Secure P2P Payment Platform</h1>
+    <div class="container">
+        <div class="hero">
 
-    <p>Simulated peer-to-peer payment system.</p>
+            <h1>Secure P2P Payment Platform</h1>
 
-    <a href="register.php">Register</a>
-    <br>
-    <a href="login.php">Login</a>
+            <p>
+                A secure peer-to-peer payment system with
+                authentication, transaction tracking and security controls.
+            </p>
+
+            <a href="register.php" class="btn">Create Account</a>
+            <a href="login.php" class="btn">Login</a>
+
+        </div>
+    </div>
 
 </body>
 </html>

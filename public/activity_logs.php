@@ -34,6 +34,7 @@ $result = $stmt->get_result();
 
 <head>
     <title>Activity Logs - Secure P2P Payment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

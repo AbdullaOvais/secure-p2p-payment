@@ -69,6 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html>
 <head>
     <title>Register - Secure P2P Payment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

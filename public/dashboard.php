@@ -38,6 +38,7 @@ $stmt->close();
 <html>
 <head>
     <title>Dashboard - Secure P2P Payment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>

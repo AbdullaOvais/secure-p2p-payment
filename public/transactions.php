@@ -43,6 +43,7 @@ $result = $stmt->get_result();
 
 <head>
     <title>Transaction History - Secure P2P Payment</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
