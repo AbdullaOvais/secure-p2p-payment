@@ -19,15 +19,31 @@ $user_id = $_SESSION["user_id"];
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     require_csrf_token();
     $receiver_username = trim($_POST["receiver_username"] ?? "");
-    $amount = $_POST["amount"] ?? "";
+    $amount = trim($_POST["amount"] ?? "");
 
     if ($receiver_username === "" || $amount === "") {
 
-        $message = "All fields are required.";
+    $message = "All fields are required.";
 
-    } elseif (!is_numeric($amount) || $amount <= 0) {
+    } elseif (strlen($receiver_username) < 3 || strlen($receiver_username) > 50) {
 
-        $message = "Please enter a valid amount.";
+    $message = "Invalid receiver username.";
+
+    } elseif (!preg_match('/^[A-Za-z0-9_]+$/', $receiver_username)) {
+
+    $message = "Invalid receiver username.";
+
+    } elseif (!preg_match('/^\d+(\.\d{1,2})?$/', $amount)) {
+
+    $message = "Please enter a valid amount.";
+
+    } elseif ((float)$amount <= 0) {
+
+    $message = "Amount must be greater than zero.";
+
+    } elseif ((float)$amount > 1000000) {
+
+    $message = "Amount exceeds the maximum allowed limit.";
 
     } else {
 

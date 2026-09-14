@@ -15,12 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST["email"] ?? "");
     $password = $_POST["password"] ?? "";
 
-    if ($username === "" || $email === "" || $password === "") {
+        if ($username === "" || $email === "" || $password === "") {
+
         $message = "All fields are required.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $message = "Please enter a valid email address.";
-    } elseif (strlen($password) < 8) {
-        $message = "Password must be at least 8 characters.";
+
+        } elseif (strlen($username) < 3 || strlen($username) > 50) {
+
+         $message = "Username must be between 3 and 50 characters.";
+
+        } elseif (!preg_match('/^[A-Za-z0-9_]+$/', $username)) {
+
+           $message = "Username can contain only letters, numbers, and underscores.";
+
+       } elseif (strlen($email) > 100 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+         $message = "Please enter a valid email address.";
+
+       } elseif (strlen($password) < 8 || strlen($password) > 72) {
+
+         $message = "Password must be between 8 and 72 characters.";
     } else {
 
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
