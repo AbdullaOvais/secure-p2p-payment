@@ -1,10 +1,14 @@
 <?php
+
 session_set_cookie_params([
     "httponly" => true,
     "secure" => !empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off",
     "samesite" => "Lax"
 ]);
+
 session_start();
+
+require_once __DIR__ . '/../config/security.php';
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -68,7 +72,15 @@ $stmt->close();
 
     <br>
 
-    <a href="logout.php">Logout</a>
+    <form method="POST" action="logout.php">
+    <input
+        type="hidden"
+        name="csrf_token"
+        value="<?php echo htmlspecialchars(csrf_token()); ?>"
+    >
+
+    <button type="submit">Logout</button>
+    </form>
 
 </body>
 </html>

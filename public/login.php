@@ -8,17 +8,35 @@ session_start();
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/security.php';
+$ip_address = $_SERVER["REMOTE_ADDR"] ?? "";
 $message = "";
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+      if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     require_csrf_token();
+
     $username = trim($_POST["username"] ?? "");
     $password = $_POST["password"] ?? "";
 
-    $ip_address = $_SERVER["REMOTE_ADDR"] ?? "";
+    $stmt = $conn->prepare(
+        "SELECT COUNT(*) AS failed_attempts
+         FROM activity_logs
+         WHERE action = 'LOGIN_FAILED'
+         AND ip_address = ?
+         AND created_at >= NOW() - INTERVAL 5 MINUTE"
+    );
 
-    if ($username === "" || $password === "") {
+    $stmt->bind_param("s", $ip_address);
+    $stmt->execute();
 
+    $result = $stmt->get_result();
+    $rate_limit = $result->fetch_assoc();
+
+    $stmt->close();
+
+    if ((int)$rate_limit["failed_attempts"] >= 5) {
+        $message = "Too many failed login attempts. Please try again later.";
+    } elseif ($username === "" || $password === "") {
         $message = "Username and password are required.";
 
     } else {
@@ -95,7 +113,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         } else {
 
-            $message = "Invalid username or password.";
+                       $action = "LOGIN_FAILED";
+
+                    $stmt = $conn->prepare(
+                     "INSERT INTO activity_logs
+                    (user_id, action, ip_address)
+                        VALUES (NULL, ?, ?)"
+                     );
+
+                   $stmt->bind_param(
+                      "ss",
+                     $action,
+                       $ip_address
+                       );
+
+                $stmt->execute();
+                $stmt->close();
+
+                $message = "Invalid username or password.";
         }
 
         $stmt->close();
