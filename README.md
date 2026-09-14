@@ -8,6 +8,52 @@ The primary focus of the project is **secure web application development**, with
 
 ---
 
+##  Clone & Test
+
+### Prerequisites
+- Git
+- Docker Desktop
+
+### Run the Project
+
+~~~bash
+git clone https://github.com/AbdullaOvais/secure-p2p-payment.git
+cd secure-p2p-payment
+~~~
+
+Create a `.env` file in the project root:
+
+~~~env
+MYSQL_ROOT_PASSWORD=rootpassword
+MYSQL_DATABASE=p2p_payment
+MYSQL_USER=p2p_user
+MYSQL_PASSWORD=p2p_password
+~~~
+
+Start the application:
+
+~~~bash
+docker compose up -d --build
+~~~
+
+Open:
+
+**http://localhost:8080**
+
+### Quick Test
+
+1. Register two users.
+2. Login with one user.
+3. Send money to the second user.
+4. Check the transaction history and activity logs.
+5. Logout and login again to verify authentication.
+
+To stop the application:
+
+~~~bash
+docker compose down
+~~~
+---
 ##  Features
 
 ###  User Management
