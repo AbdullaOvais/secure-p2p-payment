@@ -186,6 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Send Money - Secure P2P Payment</title>
     <link rel="stylesheet" href="style.css">
@@ -193,51 +194,82 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
 
-    <h1>Send Money</h1>
+    <div class="navbar">
 
-    <?php if ($message !== ""): ?>
-        <p>
-            <?php echo htmlspecialchars($message); ?>
-        </p>
-    <?php endif; ?>
+        <div class="nav-inner">
 
-    <form method="POST">
-        <input
-        type="hidden"
-        name="csrf_token"
-        value="<?php echo htmlspecialchars(csrf_token()); ?>"
-        >
-        <label>Receiver Username:</label><br>
+            <h2>Secure P2P Payment</h2>
 
-        <input
-            type="text"
-            name="receiver_username"
-            required
-        >
+            <div>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="transactions.php">Transactions</a>
+                <a href="activity_logs.php">Activity Logs</a>
+            </div>
 
-        <br><br>
+        </div>
 
-        <label>Amount:</label><br>
+    </div>
 
-        <input
-            type="number"
-            name="amount"
-            min="0.01"
-            step="0.01"
-            required
-        >
+    <div class="auth-container">
 
-        <br><br>
+        <div class="card">
 
-        <button type="submit">
-            Send Money
-        </button>
+            <h1>Send Money</h1>
 
-    </form>
+            <?php if ($message !== ""): ?>
 
-    <br>
+                <div class="message">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
 
-    <a href="dashboard.php">Back to Dashboard</a>
+            <?php endif; ?>
+
+            <form method="POST">
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo htmlspecialchars(csrf_token()); ?>"
+                >
+
+                <label for="receiver_username">
+                    Receiver Username
+                </label>
+
+                <input
+                    type="text"
+                    id="receiver_username"
+                    name="receiver_username"
+                    required
+                >
+
+                <label for="amount">
+                    Amount
+                </label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
+
+                <button type="submit">
+                    Send Money
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+                <a href="dashboard.php">Back to Dashboard</a>
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

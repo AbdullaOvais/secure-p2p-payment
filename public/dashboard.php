@@ -36,6 +36,7 @@ $stmt->close();
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Dashboard - Secure P2P Payment</title>
     <link rel="stylesheet" href="style.css">
@@ -43,45 +44,122 @@ $stmt->close();
 
 <body>
 
-    <h1>Welcome, <?php echo htmlspecialchars($user["username"]); ?>!</h1>
+    <div class="navbar">
 
-    <h2>Account Details</h2>
+        <div class="nav-inner">
 
-    <p>
-        <strong>Email:</strong>
-        <?php echo htmlspecialchars($user["email"]); ?>
-    </p>
+            <h2>Secure P2P Payment</h2>
 
-    <p>
-        <strong>Balance:</strong>
-        ₹<?php echo number_format($user["balance"], 2); ?>
-    </p>
+            <div>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="send_money.php">Send Money</a>
+                <a href="transactions.php">Transactions</a>
+                <a href="activity_logs.php">Activity Logs</a>
 
-    <hr>
+                <form method="POST" action="logout.php" style="display: inline;">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?php echo htmlspecialchars(csrf_token()); ?>"
+                    >
 
-    <h2>Payment</h2>
+                    <button type="submit" class="logout-btn">
+                        Logout
+                    </button>
+                </form>
+            </div>
 
-    <p>
-    <a href="send_money.php">Send Money</a>
-    </p>
-   <p>
-    <a href="transactions.php">Transaction History</a>
-   </p>
-   <p>
-    <a href="activity_logs.php">Activity Logs</a>
-   </p>
+        </div>
 
-    <br>
+    </div>
 
-    <form method="POST" action="logout.php">
-    <input
-        type="hidden"
-        name="csrf_token"
-        value="<?php echo htmlspecialchars(csrf_token()); ?>"
-    >
+    <div class="container">
 
-    <button type="submit">Logout</button>
-    </form>
+        <div class="card">
+
+            <h1>Welcome, <?php echo htmlspecialchars($user["username"]); ?>!</h1>
+
+            <p>
+                Manage your account and peer-to-peer payments securely.
+            </p>
+
+        </div>
+
+        <div class="balance-card">
+
+            <p>Available Balance</p>
+
+            <div class="balance">
+                ₹<?php echo htmlspecialchars($user["balance"]); ?>
+            </div>
+
+        </div>
+
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+
+                <h3>Send Money</h3>
+
+                <p>
+                    Transfer money securely to another user.
+                </p>
+
+                <a href="send_money.php" class="btn">
+                    Send Money
+                </a>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>Transactions</h3>
+
+                <p>
+                    View your payment transaction history.
+                </p>
+
+                <a href="transactions.php" class="btn">
+                    View Transactions
+                </a>
+
+            </div>
+
+            <div class="dashboard-card">
+
+                <h3>Activity Logs</h3>
+
+                <p>
+                    View your account security activity.
+                </p>
+
+                <a href="activity_logs.php" class="btn">
+                    View Activity
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Account Information</h3>
+
+            <p>
+                <strong>Username:</strong>
+                <?php echo htmlspecialchars($user["username"]); ?>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <?php echo htmlspecialchars($user["email"]); ?>
+            </p>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>
+   

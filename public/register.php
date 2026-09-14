@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Register - Secure P2P Payment</title>
     <link rel="stylesheet" href="style.css">
@@ -74,37 +75,75 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body>
 
-    <h1>Create Account</h1>
+    <div class="auth-container">
 
-    <?php if ($message !== ""): ?>
-        <p><?php echo htmlspecialchars($message); ?></p>
-    <?php endif; ?>
+        <div class="card">
 
-    <form method="POST">
-        <input
-        type="hidden"
-        name="csrf_token"
-        value="<?php echo htmlspecialchars(csrf_token()); ?>"
-        >
-        <label>Username:</label><br>
-        <input type="text" name="username" required>
-        <br><br>
+            <h1>Create Account</h1>
 
-        <label>Email:</label><br>
-        <input type="email" name="email" required>
-        <br><br>
+            <?php if ($message !== ""): ?>
 
-        <label>Password:</label><br>
-        <input type="password" name="password" required minlength="8">
-        <br><br>
+                <div class="message">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
 
-        <button type="submit">Register</button>
+            <?php endif; ?>
 
-    </form>
+            <form method="POST">
 
-    <br>
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo htmlspecialchars(csrf_token()); ?>"
+                >
 
-    <a href="index.php">Back to Home</a>
+                <label for="username">Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                >
+
+                <label for="email">Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                >
+
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                >
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+
+                <a href="login.php">Already have an account? Login</a>
+
+                <br><br>
+
+                <a href="index.php">Back to Home</a>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

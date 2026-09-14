@@ -48,77 +48,113 @@ $result = $stmt->get_result();
 
 <body>
 
-    <h1>Transaction History</h1>
+    <div class="navbar">
 
-    <?php if ($result->num_rows > 0): ?>
+        <div class="nav-inner">
 
-        <table border="1" cellpadding="10" cellspacing="0">
+            <h2>Secure P2P Payment</h2>
 
-            <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Amount</th>
-                <th>Status</th>
-            </tr>
+            <div>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="send_money.php">Send Money</a>
+                <a href="activity_logs.php">Activity Logs</a>
+            </div>
 
-            <?php while ($row = $result->fetch_assoc()): ?>
+        </div>
 
-                <tr>
+    </div>
 
-                    <td>
-                        <?php echo htmlspecialchars($row["created_at"]); ?>
-                    </td>
+    <div class="container">
 
-                    <td>
-                        <?php
-                        if ((int)$row["sender_id"] === (int)$user_id) {
-                            echo "Sent";
-                        } else {
-                            echo "Received";
-                        }
-                        ?>
-                    </td>
+        <div class="card">
 
-                    <td>
-                        <?php echo htmlspecialchars($row["sender"]); ?>
-                    </td>
+            <h1>Transaction History</h1>
 
-                    <td>
-                        <?php echo htmlspecialchars($row["receiver"]); ?>
-                    </td>
+            <p>
+                View your recent payment transactions.
+            </p>
 
-                    <td>
-                        ₹<?php echo number_format((float)$row["amount"], 2); ?>
-                    </td>
+            <?php if ($result->num_rows > 0): ?>
 
-                    <td>
-                        <?php echo htmlspecialchars($row["status"]); ?>
-                    </td>
+                <div class="table-wrapper">
 
-                </tr>
+                    <table>
 
-            <?php endwhile; ?>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
 
-        </table>
+                        <tbody>
 
-    <?php else: ?>
+                            <?php while ($row = $result->fetch_assoc()): ?>
 
-        <p>No transactions found.</p>
+                                <tr>
 
-    <?php endif; ?>
+                                    <td>
+                                        <?php echo htmlspecialchars($row["created_at"]); ?>
+                                    </td>
 
-    <br>
+                                    <td>
+                                        <?php
+                                        if ((int)$row["sender_id"] === (int)$user_id) {
+                                            echo "Sent";
+                                        } else {
+                                            echo "Received";
+                                        }
+                                        ?>
+                                    </td>
 
-    <a href="dashboard.php">Back to Dashboard</a>
+                                    <td>
+                                        <?php echo htmlspecialchars($row["sender"]); ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($row["receiver"]); ?>
+                                    </td>
+
+                                    <td>
+                                        ₹<?php echo number_format((float)$row["amount"], 2); ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($row["status"]); ?>
+                                    </td>
+
+                                </tr>
+
+                            <?php endwhile; ?>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            <?php else: ?>
+
+                <div class="message">
+                    No transactions found.
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <div style="text-align: center;">
+            <a href="dashboard.php" class="btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
 
 </body>
 
 </html>
-
-<?php
-
-$stmt->close();
-
-?>

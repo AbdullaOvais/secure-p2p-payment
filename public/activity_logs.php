@@ -39,49 +39,91 @@ $result = $stmt->get_result();
 
 <body>
 
-    <h1>Activity Logs</h1>
+    <div class="navbar">
 
-    <?php if ($result->num_rows > 0): ?>
+        <div class="nav-inner">
 
-        <table border="1" cellpadding="10" cellspacing="0">
+            <h2>Secure P2P Payment</h2>
 
-            <tr>
-                <th>Date & Time</th>
-                <th>Activity</th>
-                <th>IP Address</th>
-            </tr>
+            <div>
+                <a href="dashboard.php">Dashboard</a>
+                <a href="send_money.php">Send Money</a>
+                <a href="transactions.php">Transactions</a>
+            </div>
 
-            <?php while ($row = $result->fetch_assoc()): ?>
+        </div>
 
-                <tr>
+    </div>
 
-                    <td>
-                        <?php echo htmlspecialchars($row["created_at"]); ?>
-                    </td>
+    <div class="container">
 
-                    <td>
-                        <?php echo htmlspecialchars($row["action"]); ?>
-                    </td>
+        <div class="card">
 
-                    <td>
-                        <?php echo htmlspecialchars($row["ip_address"]); ?>
-                    </td>
+            <h1>Activity Logs</h1>
 
-                </tr>
+            <p>
+                Review your recent account and security activity.
+            </p>
 
-            <?php endwhile; ?>
+            <?php if ($result->num_rows > 0): ?>
 
-        </table>
+                <div class="table-wrapper">
 
-    <?php else: ?>
+                    <table>
 
-        <p>No activity logs found.</p>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>IP Address</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
 
-    <?php endif; ?>
+                        <tbody>
 
-    <br>
+                            <?php while ($row = $result->fetch_assoc()): ?>
 
-    <a href="dashboard.php">Back to Dashboard</a>
+                                <tr>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($row["action"]); ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($row["ip_address"]); ?>
+                                    </td>
+
+                                    <td>
+                                        <?php echo htmlspecialchars($row["created_at"]); ?>
+                                    </td>
+
+                                </tr>
+
+                            <?php endwhile; ?>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            <?php else: ?>
+
+                <div class="message">
+                    No activity logs found.
+                </div>
+
+            <?php endif; ?>
+
+        </div>
+
+        <div style="text-align: center;">
+            <a href="dashboard.php" class="btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
 
 </body>
 

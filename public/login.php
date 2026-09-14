@@ -149,55 +149,65 @@ $message = "";
 
 <body>
 
-    <h1>Login</h1>
+    <div class="auth-container">
 
-    <?php if ($message !== ""): ?>
+        <div class="card">
 
-        <p>
-            <?php echo htmlspecialchars($message); ?>
-        </p>
+            <h1>Login</h1>
 
-    <?php endif; ?>
+            <?php if ($message !== ""): ?>
 
-    <form method="POST">
-        <input
-        type="hidden"
-        name="csrf_token"
-        value="<?php echo htmlspecialchars(csrf_token()); ?>"
-        >
-        <label>Username:</label><br>
+                <div class="message">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
 
-        <input
-            type="text"
-            name="username"
-            required
-        >
+            <?php endif; ?>
 
-        <br><br>
+            <form method="POST">
 
-        <label>Password:</label><br>
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="<?php echo htmlspecialchars(csrf_token()); ?>"
+                >
 
-        <input
-            type="password"
-            name="password"
-            required
-        >
+                <label for="username">Username</label>
 
-        <br><br>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    required
+                >
 
-        <button type="submit">
-            Login
-        </button>
+                <label for="password">Password</label>
 
-    </form>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                >
 
-    <br>
+                <button type="submit">
+                    Login
+                </button>
 
-    <a href="register.php">Create Account</a>
+            </form>
 
-    <br>
+            <div class="auth-footer">
 
-    <a href="index.php">Back to Home</a>
+                <a href="register.php">Create Account</a>
+
+                <br><br>
+
+                <a href="index.php">Back to Home</a>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 
