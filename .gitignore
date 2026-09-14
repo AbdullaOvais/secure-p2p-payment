@@ -1,0 +1,26 @@
+# Environment files
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+logs/*
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
+
+# Docker / database data
+mysql_data/
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS / temporary files
+*.tmp
+*.swp
