@@ -8,12 +8,12 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 require_once __DIR__ . '/../config/database.php';
-
+require_once __DIR__ . '/../config/security.php';
 $message = "";
 $user_id = $_SESSION["user_id"];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+    require_csrf_token();
     $receiver_username = trim($_POST["receiver_username"] ?? "");
     $amount = $_POST["amount"] ?? "";
 
@@ -181,7 +181,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php endif; ?>
 
     <form method="POST">
-
+        <input
+        type="hidden"
+        name="csrf_token"
+        value="<?php echo htmlspecialchars(csrf_token()); ?>"
+        >
         <label>Receiver Username:</label><br>
 
         <input

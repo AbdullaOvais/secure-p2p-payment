@@ -3,11 +3,11 @@
 session_start();
 
 require_once __DIR__ . '/../config/database.php';
-
+require_once __DIR__ . '/../config/security.php';
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+    require_csrf_token();
     $username = trim($_POST["username"] ?? "");
     $password = $_POST["password"] ?? "";
 
@@ -120,7 +120,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php endif; ?>
 
     <form method="POST">
-
+        <input
+        type="hidden"
+        name="csrf_token"
+        value="<?php echo htmlspecialchars(csrf_token()); ?>"
+        >
         <label>Username:</label><br>
 
         <input
